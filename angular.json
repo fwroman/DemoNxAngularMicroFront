@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "projects": {
+    "login-app": {
+      "projectType": "application",
+      "root": "apps/login-app",
+      "sourceRoot": "apps/login-app/src",
+      "prefix": "demo-nx-angular12-micro-front",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/login-app",
+            "index": "apps/login-app/src/index.html",
+            "main": "apps/login-app/src/main.ts",
+            "polyfills": "apps/login-app/src/polyfills.ts",
+            "tsConfig": "apps/login-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/login-app/src/favicon.ico",
+              "apps/login-app/src/assets"
+            ],
+            "styles": ["apps/login-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/login-app/src/environments/environment.ts",
+                  "with": "apps/login-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "login-app:build:production"
+            },
+            "development": {
+              "browserTarget": "login-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "login-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/login-app/src/**/*.ts",
+              "apps/login-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/login-app"],
+          "options": {
+            "jestConfig": "apps/login-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "login-app-e2e": {
+      "root": "apps/login-app-e2e",
+      "sourceRoot": "apps/login-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/login-app-e2e/cypress.json",
+            "tsConfig": "apps/login-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "login-app:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "login-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/login-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "login-app"
+}
