@@ -1,28 +1,30 @@
 {
   "version": 1,
   "projects": {
-    "login-app": {
+    "global-nav": {
       "projectType": "application",
-      "root": "apps/login-app",
-      "sourceRoot": "apps/login-app/src",
-      "prefix": "demo-nx-angular12-micro-front",
+      "root": "apps/global-nav",
+      "sourceRoot": "apps/global-nav/src",
+      "prefix": "angular12-micro-frontend-nx-workspace",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/login-app",
-            "index": "apps/login-app/src/index.html",
-            "main": "apps/login-app/src/main.ts",
-            "polyfills": "apps/login-app/src/polyfills.ts",
-            "tsConfig": "apps/login-app/tsconfig.app.json",
+            "outputPath": "dist/apps/global-nav",
+            "index": "apps/global-nav/src/index.html",
+            "main": "apps/global-nav/src/main.ts",
+            "polyfills": "apps/global-nav/src/polyfills.ts",
+            "tsConfig": "apps/global-nav/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/login-app/src/favicon.ico",
-              "apps/login-app/src/assets"
+              "apps/global-nav/src/favicon.ico",
+              "apps/global-nav/src/assets"
             ],
-            "styles": ["apps/login-app/src/styles.scss"],
-            "scripts": []
+            "styles": ["apps/global-nav/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "apps/global-nav/webpack.config.js",
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -40,11 +42,12 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/login-app/src/environments/environment.ts",
-                  "with": "apps/login-app/src/environments/environment.prod.ts"
+                  "replace": "apps/global-nav/src/environments/environment.ts",
+                  "with": "apps/global-nav/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "extraWebpackConfig": "apps/global-nav/webpack.prod.config.js"
             },
             "development": {
               "buildOptimizer": false,
@@ -58,71 +61,617 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "login-app:build:production"
+              "browserTarget": "global-nav:build:production",
+              "extraWebpackConfig": "apps/global-nav/webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "login-app:build:development"
+              "browserTarget": "global-nav:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "extraWebpackConfig": "apps/global-nav/webpack.config.js",
+            "port": 4701
+          }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "login-app:build"
+            "browserTarget": "global-nav:build",
+            "extraWebpackConfig": "apps/global-nav/webpack.config.js"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/login-app/src/**/*.ts",
-              "apps/login-app/src/**/*.html"
+              "apps/global-nav/src/**/*.ts",
+              "apps/global-nav/src/**/*.html"
             ]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/login-app"],
+          "builder": "ngx-build-plus:karma",
+          "outputs": ["coverage/apps/global-nav"],
           "options": {
-            "jestConfig": "apps/login-app/jest.config.js",
-            "passWithNoTests": true
+            "jestConfig": "apps/global-nav/jest.config.js",
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/global-nav/webpack.config.js"
           }
         }
       }
     },
-    "login-app-e2e": {
-      "root": "apps/login-app-e2e",
-      "sourceRoot": "apps/login-app-e2e/src",
+    "global-nav-e2e": {
+      "root": "apps/global-nav-e2e",
+      "sourceRoot": "apps/global-nav-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/login-app-e2e/cypress.json",
-            "tsConfig": "apps/login-app-e2e/tsconfig.e2e.json",
-            "devServerTarget": "login-app:serve:development"
+            "cypressConfig": "apps/global-nav-e2e/cypress.json",
+            "devServerTarget": "global-nav:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "login-app:serve:production"
+              "devServerTarget": "global-nav:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/login-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/global-nav-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "guest-app": {
+      "projectType": "application",
+      "root": "apps/guest-app",
+      "sourceRoot": "apps/guest-app/src",
+      "prefix": "angular12-micro-frontend-nx-workspace",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/guest-app",
+            "index": "apps/guest-app/src/index.html",
+            "main": "apps/guest-app/src/main.ts",
+            "polyfills": "apps/guest-app/src/polyfills.ts",
+            "tsConfig": "apps/guest-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/guest-app/src/favicon.ico",
+              "apps/guest-app/src/assets"
+            ],
+            "styles": ["apps/guest-app/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "apps/guest-app/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/guest-app/src/environments/environment.ts",
+                  "with": "apps/guest-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "apps/guest-app/webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "guest-app:build:production",
+              "extraWebpackConfig": "apps/guest-app/webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "guest-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "extraWebpackConfig": "apps/guest-app/webpack.config.js",
+            "port": 4702
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "guest-app:build",
+            "extraWebpackConfig": "apps/guest-app/webpack.config.js"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/guest-app/src/**/*.ts",
+              "apps/guest-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "outputs": ["coverage/apps/guest-app"],
+          "options": {
+            "jestConfig": "apps/guest-app/jest.config.js",
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/guest-app/webpack.config.js"
+          }
+        }
+      }
+    },
+    "guest-app-e2e": {
+      "root": "apps/guest-app-e2e",
+      "sourceRoot": "apps/guest-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/guest-app-e2e/cypress.json",
+            "devServerTarget": "guest-app:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "guest-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/guest-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "main-app": {
+      "projectType": "application",
+      "root": "apps/main-app",
+      "sourceRoot": "apps/main-app/src",
+      "prefix": "angular12-micro-frontend-nx-workspace",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/main-app",
+            "index": "apps/main-app/src/index.html",
+            "main": "apps/main-app/src/main.ts",
+            "polyfills": "apps/main-app/src/polyfills.ts",
+            "tsConfig": "apps/main-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/main-app/src/favicon.ico",
+              "apps/main-app/src/assets"
+            ],
+            "styles": ["apps/main-app/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "apps/main-app/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/main-app/src/environments/environment.ts",
+                  "with": "apps/main-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "apps/main-app/webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "main-app:build:production",
+              "extraWebpackConfig": "apps/main-app/webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "main-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "extraWebpackConfig": "apps/main-app/webpack.config.js",
+            "port": 4200
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "main-app:build",
+            "extraWebpackConfig": "apps/main-app/webpack.config.js"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/main-app/src/**/*.ts",
+              "apps/main-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "outputs": ["coverage/apps/main-app"],
+          "options": {
+            "jestConfig": "apps/main-app/jest.config.js",
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/main-app/webpack.config.js"
+          }
+        }
+      }
+    },
+    "main-app-e2e": {
+      "root": "apps/main-app-e2e",
+      "sourceRoot": "apps/main-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/main-app-e2e/cypress.json",
+            "devServerTarget": "main-app:serve:development",
+            "tsConfig": "apps/main-app-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "main-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/main-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "services-lib": {
+      "projectType": "library",
+      "root": "libs/services-lib",
+      "sourceRoot": "libs/services-lib/src",
+      "prefix": "angular12-micro-frontend-nx-workspace",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/services-lib"],
+          "options": {
+            "jestConfig": "libs/services-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/services-lib/src/**/*.ts",
+              "libs/services-lib/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "sign-up": {
+      "projectType": "application",
+      "root": "apps/sign-up",
+      "sourceRoot": "apps/sign-up/src",
+      "prefix": "angular12-micro-frontend-nx-workspace",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/sign-up",
+            "index": "apps/sign-up/src/index.html",
+            "main": "apps/sign-up/src/main.ts",
+            "polyfills": "apps/sign-up/src/polyfills.ts",
+            "tsConfig": "apps/sign-up/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/sign-up/src/favicon.ico",
+              "apps/sign-up/src/assets"
+            ],
+            "styles": ["apps/sign-up/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "apps/sign-up/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/sign-up/src/environments/environment.ts",
+                  "with": "apps/sign-up/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "apps/sign-up/webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "sign-up:build:production",
+              "extraWebpackConfig": "apps/sign-up/webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "sign-up:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "extraWebpackConfig": "apps/sign-up/webpack.config.js",
+            "port": 4201
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "sign-up:build",
+            "extraWebpackConfig": "apps/sign-up/webpack.config.js"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/sign-up/src/**/*.ts",
+              "apps/sign-up/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "outputs": ["coverage/apps/sign-up"],
+          "options": {
+            "jestConfig": "apps/sign-up/jest.config.js",
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/sign-up/webpack.config.js"
+          }
+        }
+      }
+    },
+    "sign-up-e2e": {
+      "root": "apps/sign-up-e2e",
+      "sourceRoot": "apps/sign-up-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/sign-up-e2e/cypress.json",
+            "devServerTarget": "sign-up:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sign-up:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/sign-up-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "svg-animation": {
+      "projectType": "application",
+      "root": "apps/svg-animation",
+      "sourceRoot": "apps/svg-animation/src",
+      "prefix": "angular12-micro-frontend-nx-workspace",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/svg-animation",
+            "index": "apps/svg-animation/src/index.html",
+            "main": "apps/svg-animation/src/main.ts",
+            "polyfills": "apps/svg-animation/src/polyfills.ts",
+            "tsConfig": "apps/svg-animation/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/svg-animation/src/favicon.ico",
+              "apps/svg-animation/src/assets"
+            ],
+            "styles": ["apps/svg-animation/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "apps/svg-animation/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/svg-animation/src/environments/environment.ts",
+                  "with": "apps/svg-animation/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "apps/svg-animation/webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "svg-animation:build:production",
+              "extraWebpackConfig": "apps/svg-animation/webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "svg-animation:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "extraWebpackConfig": "apps/svg-animation/webpack.config.js",
+            "port": 4700
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "svg-animation:build",
+            "extraWebpackConfig": "apps/svg-animation/webpack.config.js"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/svg-animation/src/**/*.ts",
+              "apps/svg-animation/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "outputs": ["coverage/apps/svg-animation"],
+          "options": {
+            "jestConfig": "apps/svg-animation/jest.config.js",
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/svg-animation/webpack.config.js"
+          }
+        }
+      }
+    },
+    "svg-animation-e2e": {
+      "root": "apps/svg-animation-e2e",
+      "sourceRoot": "apps/svg-animation-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/svg-animation-e2e/cypress.json",
+            "devServerTarget": "svg-animation:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "svg-animation:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/svg-animation-e2e/**/*.{js,ts}"]
           }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "analytics": false,
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
   },
   "schematics": {
     "@nrwl/angular": {
@@ -151,5 +700,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "login-app"
+  "defaultProject": "main-app"
 }

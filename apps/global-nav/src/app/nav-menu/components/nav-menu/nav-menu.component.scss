@@ -1,0 +1,43 @@
+.fr-link {
+    color: #2B2B2B;
+    text-decoration: none !important;
+    position: relative;
+
+    span {
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        left: 0px;
+        bottom: 0px;
+        background: #C8C8C8;
+        transition: all 0.3s ease;
+        transform: scaleX(0);
+    }
+
+    &.fr-link-active {
+        span {
+            transform: scaleX(100%);
+            background: #17a2b8;
+        }
+    }
+}
+
+.fr-link:hover {
+    span {
+        transition: all 0.4s ease;
+        transform: scaleX(100%);
+    }
+}
+
+.fr-divider {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    span {
+        width: 2px;
+        background: #C8C8C8;
+    }
+}

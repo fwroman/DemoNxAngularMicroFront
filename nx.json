@@ -1,5 +1,5 @@
 {
-  "npmScope": "demo-nx-angular12-micro-front",
+  "npmScope": "angular12-micro-frontend-nx-workspace",
   "affected": {
     "defaultBase": "master"
   },
@@ -27,12 +27,36 @@
     ]
   },
   "projects": {
-    "login-app": {
+    "global-nav": {
       "tags": []
     },
-    "login-app-e2e": {
+    "global-nav-e2e": {
       "tags": [],
-      "implicitDependencies": ["login-app"]
+      "implicitDependencies": ["global-nav"]
+    },
+    "guest-app": {
+      "tags": []
+    },
+    "guest-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["guest-app"]
+    },
+    "main-app": {
+      "tags": []
+    },
+    "main-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["main-app"]
+    },
+    "services-lib": {
+      "tags": []
+    },
+    "svg-animation": {
+      "tags": []
+    },
+    "svg-animation-e2e": {
+      "tags": [],
+      "implicitDependencies": ["svg-animation"]
     }
   }
 }

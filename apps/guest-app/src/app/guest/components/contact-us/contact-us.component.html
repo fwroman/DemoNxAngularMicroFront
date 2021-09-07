@@ -1,0 +1,26 @@
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+    <h3 class="mt-4">We would like to get in touch with you</h3>
+
+    <form #frmContacto="ngForm" (ngSubmit)="sendContactMsg()"
+        class="col-md-8 d-flex flex-column align-items-center mt-4">
+        <div class="form-group col-6">
+            <label class="form-label">Name:</label>
+            <input type="text" class="form-control" name="userName" #userName="ngModel"
+                [(ngModel)]="contactMessage.name">
+        </div>
+
+        <div class="form-group mt-2 col-6">
+            <label class="form-label">Email:</label>
+            <input type="text" class="form-control" name="userEmail" #userEmail="ngModel"
+                [(ngModel)]="contactMessage.email">
+        </div>
+
+        <div class="form-group mt-2 col-6">
+            <label class="form-label">Message:</label>
+            <textarea type="text" rows="5" class="form-control" name="userMsg" #userMsg="ngModel"
+                [(ngModel)]="contactMessage.message"></textarea>
+        </div>
+
+        <button class="mt-4 btn btn-outline-info">Send</button>
+    </form>
+</div>

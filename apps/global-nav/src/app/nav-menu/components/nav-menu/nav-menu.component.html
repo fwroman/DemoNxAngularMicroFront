@@ -1,0 +1,11 @@
+<div class="d-flex flex-row justify-content-between mb-4">
+    <ng-container *ngFor="let menu of navList; let i = index">
+        <a [routerLink]="menu.route" [routerLinkActive]="'fr-link-active'" class="fr-link">
+            <h4 class="mb-0">{{ menu.name }}</h4>
+            <span></span>
+        </a>
+        <ng-container *ngIf="navList.length - 1 > i">
+            <div class="fr-divider"><span></span></div>
+        </ng-container>
+    </ng-container>
+</div>

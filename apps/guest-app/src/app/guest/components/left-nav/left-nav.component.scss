@@ -1,0 +1,18 @@
+.main-content {
+    height: 100vh;
+
+    a {
+        text-decoration: none;
+        color: #2B2B2B;
+    }
+
+    .main-menu {
+        flex-shrink: 0;
+    }
+    
+    .child-content {
+        flex: 1 0;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+}
