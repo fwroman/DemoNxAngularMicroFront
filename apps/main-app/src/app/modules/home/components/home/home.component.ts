@@ -9,16 +9,40 @@ import { RemoteAttribute, RemoteInstance } from 'apps/main-app/src/app/interface
 export class HomeComponent implements OnInit {
   public remoteLottieFileData: RemoteInstance | any;
   public remoteNavMenuData: RemoteInstance | any;
+  public remoteFormBuilder: RemoteInstance | any;
 
   constructor() { }
 
   ngOnInit() {
     this.defineRemoteLottieFileComponent();
     this.defineRemoteNavMenuComponent();
+    this.defineRemoteFormBuilder();
   }
 
   public getComponentRef(event: ComponentRef<any>) {
     this.updateRemoteAnimation(event);
+  }
+
+  public defineRemoteFormBuilder() {
+    const formInputs: RemoteAttribute[] = [{
+      propertyName: 'stepsBuild',
+      propertyValue: [{
+        questionGroup: 'Group 1',
+        questionTitle: 'Title 1',
+        buttonLabel: 'Submit',
+        subtitle: 'Subtitle 1',
+        fields: [],
+      }]
+    }];
+    this.remoteFormBuilder = {
+      url: 'http://localhost:4200',
+      filePath: '/communitiesEntry.js',
+      instanceName: 'communitiesApp',
+      instancePath: './',
+      moduleName: 'QuestionnaireBuilderModule',
+      componentName: 'FormBuilderComponent',
+      inputAttributes: formInputs,
+    };
   }
 
   private updateRemoteAnimation(componentRef: ComponentRef<any>) {
