@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
       { name: "Sign in", route: "/auth/sign-in" },
       { name: "Sign up", route: "/auth/sign-up" },
       { name: "Guest", route: "/guest" },
+      { name: "Communities", route: "/communities/home" },
     ];
     const inputAttrib: RemoteAttribute[] = [{
       propertyName: 'navList',
@@ -53,8 +54,8 @@ export class HomeComponent implements OnInit {
   private defineRemoteLottieFileComponent() {
     const inputAttrib: RemoteAttribute[] = [{
       propertyName: 'animationUrl',
-      // propertyValue: 'https://assets3.lottiefiles.com/packages/lf20_dyppatws.json'
-      propertyValue: 'https://assets8.lottiefiles.com/packages/lf20_kkmdryze.json'
+      propertyValue: 'https://assets3.lottiefiles.com/packages/lf20_dyppatws.json'
+      // propertyValue: 'https://assets8.lottiefiles.com/packages/lf20_kkmdryze.json'
       // propertyValue: 'https://assets5.lottiefiles.com/packages/lf20_p1qiuawe.json'
       // propertyValue: 'https://assets5.lottiefiles.com/packages/lf20_obkemuop.json'
     }];
