@@ -1,5 +1,12 @@
 <div class="container d-flex flex-column align-items-center mt-4">
-    <h1 class="text-center">Micro frontend applications demo</h1>
+    <h1 class="d-flex justify-content-between w-100">
+        <span>
+            Micro frontend applications demo
+        </span>
+        <span>
+            {{ remoteDate }}
+        </span>
+    </h1>
     <div class="d-flex justify-content-between">
         <div [dynamicLoader]="remoteLottieFileData" (onGetRemoteComponentRef)="getComponentRef($event)"></div>
         <div [dynamicLoader]="remoteFormBuilder"></div>

@@ -24,6 +24,7 @@
     "@nrwl/angular": "12.8.0",
     "bootstrap": "^5.1.0",
     "lottie-web": "^5.7.13",
+    "moment": "^2.29.1",
     "ngx-lottie": "^7.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

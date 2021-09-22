@@ -1,5 +1,6 @@
 import { Component, ComponentRef, OnInit } from '@angular/core';
 import { RemoteAttribute, RemoteInstance } from 'apps/main-app/src/app/interfaces/remote-instance';
+import * as moment from 'moment';
 
 @Component({
   selector: 'angular12-micro-frontend-nx-workspace-home',
@@ -10,8 +11,21 @@ export class HomeComponent implements OnInit {
   public remoteLottieFileData: RemoteInstance | any;
   public remoteNavMenuData: RemoteInstance | any;
   public remoteFormBuilder: RemoteInstance | any;
+  public msgChannel: any;
+  public remoteDate: string | any;
 
-  constructor() { }
+  constructor() {
+    this.msgChannel = new BroadcastChannel("micro-fronts");
+    this.msgChannel.addEventListener('message', (event: any) => {
+      if (event.data) {
+        if (event.data.date) {
+          const date = moment(event.data.date);
+          console.log("remote date", date.format('YYYY-MM-DD'))
+          this.remoteDate = date.format('YYYY-MM-DD');
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.defineRemoteLottieFileComponent();
