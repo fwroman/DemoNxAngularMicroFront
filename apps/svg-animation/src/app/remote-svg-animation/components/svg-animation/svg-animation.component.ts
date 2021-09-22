@@ -24,7 +24,7 @@ export class SvgAnimationComponent implements OnChanges {
     };
 
     setTimeout(() => {
-      this.onAnimationLoaded.emit('Animation ready! :D');
+      this.onAnimationLoaded.emit('Animation ready! :D from remote svg animation');
     }, 2000);
   }
 

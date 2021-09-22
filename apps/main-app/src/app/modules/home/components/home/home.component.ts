@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getRemoteOutputData(data: any) {
-    console.log("remote data => ", data);
+    console.log("this is the remote data => ", data);
   }
 
   private defineRemoteNavMenuComponent() {

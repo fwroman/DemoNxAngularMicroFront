@@ -1,12 +1,12 @@
 <div class="container d-flex flex-column align-items-center mt-4">
     <h1 class="text-center">Micro frontend applications demo</h1>
     <div class="d-flex justify-content-between">
-        <div class="col-md-11 col-lg-5 mt-4">
-            <div [dynamicLoader]="remoteLottieFileData" (onGetRemoteComponentRef)="getComponentRef($event)"></div>
-        </div>
-        <div class="mt-4" [dynamicLoader]="remoteFormBuilder"></div>
+        <div [dynamicLoader]="remoteLottieFileData" (onGetRemoteComponentRef)="getComponentRef($event)"></div>
+        <div [dynamicLoader]="remoteFormBuilder"></div>
+        <react-app></react-app>
     </div>
     <div class="mt-4" [dynamicComponent]="remoteNavMenuData"></div>
+
 </div>
 
 
